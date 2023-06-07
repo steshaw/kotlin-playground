@@ -1,5 +1,5 @@
 fun isValidIdentifier(s: String): Boolean {
-    if (s == "") {
+    if (s.isEmpty()) {
         return false
     }
     val first = s[0]
