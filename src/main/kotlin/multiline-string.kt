@@ -49,7 +49,6 @@ fun example1() {
 }
 
 fun example2() {
-
     val s1 = """
         if (a > 1) {
             return true
