@@ -6,6 +6,8 @@ infix fun String.shouldEq(b : String) {
     }
 }
 
+val trimIndentPlugin = true
+
 fun example1() {
     val s1 = """
         hello
@@ -22,7 +24,8 @@ fun example1() {
         !!!
     """.trimIndent()
     println("s2 =\n$s2")
-    val r = """
+
+    val badResult = """
                 hello
         world
         !!!
@@ -30,12 +33,23 @@ fun example1() {
                 world2
                 !!!
     """.trimIndent()
-    println("r =\n$r")
+    println("badResult =\n$badResult")
+    if (!trimIndentPlugin) s2 shouldEq badResult
 
-    s2 shouldEq r
+    val goodResult = """
+        hello
+        world
+        !!!
+        hello2
+        world2
+        !!!
+    """.trimIndent()
+    println("goodResult =\n$goodResult")
+    if (trimIndentPlugin) s2 shouldEq goodResult
 }
 
 fun example2() {
+
     val s1 = """
         if (a > 1) {
             return true
@@ -57,7 +71,7 @@ fun example2() {
     println("s3 =\n${s3}")
 
     // Oh, dear!
-    val r = """
+    val badResult = """
                 class Test {
                             def test(a) {
                     if (a > 1) {
@@ -66,11 +80,11 @@ fun example2() {
                 }
                 }
     """.trimIndent()
-    println("r =\n$r")
-    s3 shouldEq r
+    println("badResult =\n$badResult")
+    if (!trimIndentPlugin) s3 shouldEq badResult
 
     // We want this:
-    val result = """
+    val goodResult = """
         class Test {
             def test(a) {
                 if (a > 1) {
@@ -79,9 +93,9 @@ fun example2() {
             }
         }
     """.trimIndent()
-    println("result =\n${result}")
+    println("goodResult =\n${goodResult}")
     // We cannot assert this yet!
-    if (false) s3 shouldEq result
+    if (trimIndentPlugin) s3 shouldEq goodResult
 }
 
 fun main() {

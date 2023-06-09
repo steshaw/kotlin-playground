@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.8.21"
     application
+    id("com.bennyhuo.kotlin.trimindent") version "1.8.0"
 }
 
 val jvmTarget = JavaVersion.VERSION_17
@@ -33,5 +34,5 @@ tasks.withType<KotlinCompile>() {
 }
 
 application {
-    mainClass.set("MainKt")
+    mainClass.set("Multiline_stringKt")
 }
