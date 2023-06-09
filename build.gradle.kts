@@ -5,9 +5,12 @@ plugins {
     application
 }
 
+val jvmTarget = JavaVersion.VERSION_17
+println("JVM target = ${jvmTarget} (majorVersion = ${jvmTarget.majorVersion})")
+
 java {
     sourceCompatibility = JavaVersion.VERSION_20
-    targetCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = jvmTarget
 }
 
 group = "org.steshaw"
@@ -26,7 +29,7 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "17"
+    kotlinOptions.jvmTarget = jvmTarget.toString()
 }
 
 application {
