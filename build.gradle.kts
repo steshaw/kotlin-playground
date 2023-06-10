@@ -6,7 +6,7 @@ plugins {
     id("com.bennyhuo.kotlin.trimindent") version "1.8.0"
 }
 
-val jvmTarget = JavaVersion.VERSION_17
+val jvmTarget = JavaVersion.VERSION_19
 println("JVM target = ${jvmTarget} (majorVersion = ${jvmTarget.majorVersion})")
 
 java {
