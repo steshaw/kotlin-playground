@@ -15,29 +15,41 @@ fun printCat(cat: Cat) {
     println("$name is ${if (fur) "furry"  else "bald"}")
 }
 
+data class Pair<A, B>(val a: A, val b: B)
+
 fun main() {
     val p = Person("Fred", 44)
     println(p)
 
-    val (name, age) = p
-    println("$name $age")
+    val (name1, age1) = p
+    println("$name1 $age1")
+
+    val (name2, age2) = with (p) {
+        Pair(name, age)
+    }
+    println("$name2 $age2")
+
+   with (p) {
+       println("$name $age")
+    }
+    println("$name2 $age2")
 
     val frizz = Cat("Frizz", false)
-    val (name1, fur1) = frizz
-    println("$name1 is ${if (fur1) "furry"  else "bald"}")
+    val (name3, fur1) = frizz
+    println("$name3 is ${if (fur1) "furry"  else "bald"}")
     printCat(frizz)
 
     for (pet in listOf(fluffy(), flappy())) {
         when (pet) {
             is Cat -> {
-                val (name2, fur2) = pet
-                println("$name2 is fur=$fur2")
+                val (name, fur) = pet
+                println("$name is fur=$fur")
                 printCat(pet)
             }
 
             is Dog -> {
-                val (name3, age3) = pet
-                println("$name3 is $age3 years old")
+                val (name, age) = pet
+                println("$name is $age years old")
             }
         }
     }
