@@ -85,4 +85,8 @@ fun main() {
     println(maxEntry)
     println(maxEntry.key)
     println(maxEntry.javaClass)
+
+    val heroesMap: Map<String, Hero> = heroes.associateBy { it.name }
+    println(heroesMap)
+    println(heroesMap.javaClass)
 }
