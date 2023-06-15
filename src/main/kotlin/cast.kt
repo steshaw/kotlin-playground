@@ -1,10 +1,9 @@
-fun lengthWhenString(a: Any?) : Int {
-    return if (a is String) {
+fun lengthWhenString(a: Any?) : Int =
+    if (a is String) {
         a.length
     } else {
         0
     }
-}
 
 fun main() {
     println(lengthWhenString(1))
