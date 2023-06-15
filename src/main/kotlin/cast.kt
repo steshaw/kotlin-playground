@@ -1,8 +1,8 @@
 fun lengthWhenString(a: Any?) : Int {
-    if (a is String) {
-        return a.length
+    return if (a is String) {
+        a.length
     } else {
-        return 0
+        0
     }
 }
 
