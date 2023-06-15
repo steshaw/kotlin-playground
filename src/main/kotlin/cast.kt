@@ -1,7 +1,6 @@
 fun lengthWhenString(a: Any?) : Int {
     if (a is String) {
-        val s = a
-        return s.length
+        return a.length
     }
     return 0
 }
