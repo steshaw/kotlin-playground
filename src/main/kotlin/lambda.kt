@@ -8,6 +8,15 @@ data class Hero(
     val gender: Gender?,
 )
 
+val heroes = listOf(
+    Hero("The Captain", 60, MALE),
+    Hero("Frenchy", 42, MALE),
+    Hero("The Kid", 9, null),
+    Hero("Lady Lauren", 29, FEMALE),
+    Hero("First Mate", 29, MALE),
+    Hero("Sir Stephen", 37, MALE)
+)
+
 fun main() {
     val m = mapOf(
         1 to "one",
@@ -64,18 +73,16 @@ fun main() {
     val m2 = (2..5).flatMap { n -> (1..n).map { 'a' + it } }
     println(m2)
 
-    val heroes = listOf(
-        Hero("The Captain", 60, MALE),
-        Hero("Frenchy", 42, MALE),
-        Hero("The Kid", 9, null),
-        Hero("Lady Lauren", 29, FEMALE),
-        Hero("First Mate", 29, MALE),
-        Hero("Sir Stephen", 37, MALE)
-    )
-
     val (youngest, oldest) = heroes.partition { it.age < 30 }
     println("youngest = $youngest")
     println("oldest = $oldest")
     println(kotlin.Pair(youngest.size,oldest.size))
     println(youngest.size to oldest.size)
+
+    val byAge = heroes.groupBy { it.age }
+    println(byAge)
+    val maxEntry = byAge.maxBy { (k, v) -> v.size }
+    println(maxEntry)
+    println(maxEntry.key)
+    println(maxEntry.javaClass)
 }
