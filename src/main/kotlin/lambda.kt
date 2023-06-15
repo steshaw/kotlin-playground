@@ -89,4 +89,46 @@ fun main() {
     val heroesMap: Map<String, Hero> = heroes.associateBy { it.name }
     println(heroesMap)
     println(heroesMap.javaClass)
+
+    immediatelyInvoke()
+}
+
+private fun immediatelyInvoke() {
+    println()
+    println("immediately invoke lambda")
+    // POLA violation: you can't remove the following dummy declaration.
+    val _a = 1
+    // POLA violation: you can't repeat the following statement.
+    {
+        println("hey!")
+    }()
+    // i.e. you cannot uncomment this block:
+    /*
+    {
+        println("hey!")
+    }()
+     */
+
+    // You can repeat the blocks if you bind the result to a variable.
+    val a = {
+        println("hey!")
+    }()
+    val b = {
+        println("hey!")
+    }()
+    val c = {
+        println("hey!")
+    }()
+    println((a to b) to c)
+
+    // Using `run` works better. It can be repeated without running into compilation errors.
+    run {
+        println("hey!")
+    }
+    run {
+        println("hey!")
+    }
+    run {
+        println("hey!")
+    }
 }
