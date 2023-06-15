@@ -6,4 +6,51 @@ fun main() {
     println(m.mapValues { entry -> "[[${entry.key}: ${entry.value}]]" })
     println(m.mapValues { (k, v) -> "[[$k: $v]]" })
     println(m.mapValues { (_, v) -> "$v!" })
+
+    val xs = listOf(1, 2, 3)
+    println(xs.map { it + 10 })
+
+    val xs2 = listOf(1, 2, 3, null, 5)
+    println(xs2.map { if (it == null) null else it + 10 })
+
+    val xs3 = listOf(1, 2, 3, null, 1, 2, 3)
+    println(xs3.find { it == 2 })
+    println(xs3.withIndex().find { (_, v) -> v == 2 })
+
+    // Fails the principle of least surprise here. We cannot tell if there was a null or not!
+    println(xs3.find { it == null })
+    val ys = listOf<Int?>(1, 2, 3, 4)
+    println(ys.find { it == null })
+
+    println(xs3.withIndex().find { (_, v) -> v == null })
+    println(ys.withIndex().find { (_, v) -> v == null })
+
+    println()
+    println("associate")
+    val intRange = 1..5
+    val map = intRange.associate { ('a' + it) to (it + 10) }
+    println(map.javaClass)
+    println(map)
+
+    println()
+    println("zipWithNext")
+    println(listOf<Int>().zipWithNext())
+    println(listOf(1).zipWithNext())
+    println(listOf(1, 2).zipWithNext())
+    println(listOf(1, 2, 3).zipWithNext())
+    println(listOf(1, 2, 3, 4).zipWithNext())
+    println(listOf(1, 2, 3, 4, 5).zipWithNext())
+
+    println()
+    println("flatten")
+    val flat = listOf(1..2, 4..5, 9..12).flatten()
+    println(flat.javaClass)
+    println(flat)
+
+    println()
+    println("flatMap")
+    val m1 = (2..5).map { n -> (1..n).map { 'a' + it } }
+    println(m1)
+    val m2 = (2..5).flatMap { n -> (1..n).map { 'a' + it } }
+    println(m2)
 }
