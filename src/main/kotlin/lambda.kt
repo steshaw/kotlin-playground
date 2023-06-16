@@ -94,7 +94,7 @@ fun main() {
 
     fun duplicateNonZero(list : List<Int>) : List<Int> {
         return list.flatMap {
-            if (it == 0) return listOf()
+            if (it == 0) return@flatMap listOf()
             else listOf(it, it)
         }
     }
