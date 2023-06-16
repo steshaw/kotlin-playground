@@ -91,6 +91,14 @@ fun main() {
     println(heroesMap.javaClass)
 
     immediatelyInvoke()
+
+    fun duplicateNonZero(list : List<Int>) : List<Int> {
+        return list.flatMap {
+            if (it == 0) return listOf()
+            else listOf(it, it)
+        }
+    }
+    println(duplicateNonZero(listOf(3, 0, 5)))
 }
 
 private fun immediatelyInvoke() {
