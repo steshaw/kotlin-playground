@@ -76,7 +76,7 @@ fun main() {
     val (youngest, oldest) = heroes.partition { it.age < 30 }
     println("youngest = $youngest")
     println("oldest = $oldest")
-    println(kotlin.Pair(youngest.size,oldest.size))
+    println(kotlin.Pair(youngest.size, oldest.size))
     println(youngest.size to oldest.size)
 
     val byAge = heroes.groupBy(Hero::age)
@@ -92,13 +92,22 @@ fun main() {
 
     immediatelyInvoke()
 
-    fun duplicateNonZero(list : List<Int>) : List<Int> {
+    // An example of using a labelled return from a lambda.
+    fun duplicateNonZero(list: List<Int>): List<Int> {
         return list.flatMap {
             if (it == 0) return@flatMap listOf()
             else listOf(it, it)
         }
     }
     println(duplicateNonZero(listOf(3, 0, 5)))
+
+    // However, we don't need the label at all!
+    fun duplicateNonZero1(list: List<Int>): List<Int> {
+        return list.flatMap { elem ->
+            if (elem == 0) listOf() else listOf(elem, elem)
+        }
+    }
+    println(duplicateNonZero1(listOf(3, 0, 5)))
 }
 
 private fun immediatelyInvoke() {
