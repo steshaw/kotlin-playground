@@ -79,14 +79,14 @@ fun main() {
     println(kotlin.Pair(youngest.size,oldest.size))
     println(youngest.size to oldest.size)
 
-    val byAge = heroes.groupBy { it.age }
+    val byAge = heroes.groupBy(Hero::age)
     println(byAge)
     val maxEntry = byAge.maxBy { (k, v) -> v.size }
     println(maxEntry)
     println(maxEntry.key)
     println(maxEntry.javaClass)
 
-    val heroesMap: Map<String, Hero> = heroes.associateBy { it.name }
+    val heroesMap: Map<String, Hero> = heroes.associateBy(Hero::name)
     println(heroesMap)
     println(heroesMap.javaClass)
 
