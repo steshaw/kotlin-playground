@@ -16,5 +16,5 @@ indent_size = 4
 [*.go]
 indent_style = tab
 
-[Makefile, *.mk]
+[{Makefile,*.mk}]
 indent_style = tab
