@@ -1,6 +1,6 @@
 fun main() {
     fun <T> Iterable<T>.findAndPrint(predicate: (T) -> Boolean) {
-        val item = this.find(predicate)
+        val item = find(predicate)
         if (item != null) {
             // Are we sure that we found it?
             println("item = $item")
