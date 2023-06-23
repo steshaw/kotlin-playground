@@ -1,20 +1,22 @@
 fun main() {
-    fun <T> Iterable<T>.findAndPrint(x: T) {
-        if (this.any { it == x }) {
-            println(x)
+    fun <T> Iterable<T>.findAndPrint(predicate: (T) -> Boolean) {
+        val item = this.find(predicate)
+        if (item != null) {
+            // Are we sure that we found it?
+            println("item = $item")
         }
     }
 
     fun <T> findEm(xs: Iterable<T>) {
-        xs.findAndPrint(3)
-        xs.findAndPrint(4)
-        xs.findAndPrint(null)
+        xs.findAndPrint { it == 3 }
+        xs.findAndPrint { it == 4 }
+        xs.findAndPrint { it == null }
     }
 
-    val l1: Iterable<Int?> = listOf(1, 2, 3, null, 5, 6, 7)
-    println("l1")
-    findEm(l1)
-    val l2: Iterable<Int> = (1..7).toList()
-    println("l2")
-    findEm(l2)
+    val xs: Iterable<Int?> = listOf(1, 2, 3, null, 5, 6, 7)
+    println("xs")
+    findEm(xs)
+    val ys: Iterable<Int> = listOf(1, 2, 3, 4, 5, 6, 7)
+    println("ys")
+    findEm(ys)
 }
