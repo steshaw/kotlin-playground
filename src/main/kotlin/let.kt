@@ -2,7 +2,8 @@ import kotlin.random.Random
 
 data class Email(val email: String)
 
-fun getEmail() : Email? = if Random.nextBoolean()
+fun getEmail() : Email? =
+    if (Random.nextBoolean()) Email("steven@steshaw.org") else null
 
 fun send(email: Email) {
     println("Sending to $email")
