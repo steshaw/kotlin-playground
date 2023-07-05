@@ -1,3 +1,7 @@
+import kotlin.IllegalArgumentException
+import kotlin.math.floor
+import kotlin.math.round
+
 data class Tax (val income: Double, val base: Double, val multiplier: Double)
 
 fun mkTable(): List<Tax> {
@@ -18,22 +22,20 @@ fun mkTable(): List<Tax> {
     )
 }
 
-val LU_Scale2 = mkTable()
+val scale2Table = mkTable()
 
-fun ROUND(a: Double, places: Int) : Double {
-    return a
-}
-fun TRUNC(a: Double, places: Int) : Double {
-    return a
-}
-fun VLOOKUP(a: Double, table: List<Tax>, position: Int) : Double {
-    return 0.0
+fun VLOOKUP(income: Double, table: List<Tax>, position: Int) : Double {
+    val tax = table.reversed().find { income > it.income }!!
+    return when (position) {
+        2 -> tax.multiplier
+        3 -> tax.base
+        else -> throw IllegalArgumentException("Got position $position")
+    }
 }
 
 fun IF(condition: Boolean, value_if_true: Double, value_if_false: Double) : Double{
-    if (condition) return value_if_true else return value_if_false
+    return if (condition) value_if_true else value_if_false
 }
-val U3 = 8750.00
 
 fun SEARCH(s: String, d: Double) : Boolean {
     return false
@@ -42,11 +44,27 @@ fun ISNUMBER(b: Boolean) : Boolean {
     return b
 }
 
-val trunc :Double =
-    TRUNC((3.0 / 13.0) * (U3 + IF(ISNUMBER(SEARCH(".33", U3)), 0.01, 0.0)), 0)
-val monthlyWithholding =
-    ROUND(ROUND((trunc + 0.99) * (VLOOKUP(trunc, LU_Scale2, 2)) - (VLOOKUP(trunc, LU_Scale2, 3)), 0) * (13.0 / 3.0), 0)
+fun monthlyWithholding(monthlyIncome: Double): Double {
+    val adjustedMonthlyIncome = monthlyIncome + IF(ISNUMBER(SEARCH(".33", monthlyIncome)), 0.01, 0.0)
+    val weeklyIncome = floor((3.0 / 13.0) * adjustedMonthlyIncome)
+    println("weeklyIncome = $weeklyIncome")
+    val multiplier = VLOOKUP(weeklyIncome, scale2Table, 2)
+    val base = VLOOKUP(weeklyIncome, scale2Table, 3)
+    val monthlyWithholding =
+        round(round((weeklyIncome + 0.99) * multiplier - base) * (13.0 / 3.0))
+    return monthlyWithholding
+}
 
 fun main() {
-    println(monthlyWithholding)
+    println(VLOOKUP(2019.00,scale2Table, 2))
+    println(VLOOKUP(2019.00,scale2Table, 3))
+
+    fun p(monthlyIncome: Double) {
+        val monthlyWithholding = monthlyWithholding(monthlyIncome)
+        val net = monthlyIncome - monthlyWithholding
+        println("gross = $monthlyIncome withholding=$monthlyWithholding net=$net")
+    }
+    p(8750.00)
+    p(9000.00)
+    p(12000.00)
 }
