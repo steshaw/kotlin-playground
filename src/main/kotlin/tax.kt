@@ -18,13 +18,13 @@ fun mkTable(): List<Tax> {
         c(1282.00, 0.3450, 182.7504),
         c(2307.00, 0.3900, 286.5965),
         c(3461.00, 0.4700, 563.5196),
-    )
+    ).reversed()
 }
 
 val scale2Table = mkTable()
 
 private fun getTax(income: Double, table: List<Tax>) =
-    table.reversed().find { income > it.income }!!
+    table.find { income > it.income }!!
 
 // Add 0.01 if the amount ends with 33 cents
 private fun getAdjustedMonthlyIncome(monthlyIncome: Double) =
