@@ -26,16 +26,12 @@ val scale2Table = mkTable()
 private fun getTax(income: Double, table: List<Tax>) =
     table.reversed().find { income > it.income }!!
 
-fun endsWith33Cents(d: Double): Boolean {
-    // Oh, horrors
-    val s = d.toString()
-    val split = s.split(".")
-    return split.size == 2 && split[1] == "33"
-}
-
 // Add 0.01 if the amount ends with 33 cents
 private fun getAdjustedMonthlyIncome(monthlyIncome: Double) =
-    monthlyIncome + if (endsWith33Cents(monthlyIncome)) 0.01 else 0.0
+    monthlyIncome +
+        if (monthlyIncome.toString().endsWith(".33"))
+            0.01
+        else 0.0
 
 fun monthlyWithholding(monthlyIncome: Double): Double {
     val adjustedMonthlyIncome = getAdjustedMonthlyIncome(monthlyIncome)
@@ -44,7 +40,8 @@ fun monthlyWithholding(monthlyIncome: Double): Double {
     println("weeklyIncome = $weeklyIncome")
     val tax = getTax(weeklyIncome, scale2Table)
     println("tax = $tax")
-    return round(round((weeklyIncome + 0.99) * tax.multiplier - tax.base) * (13.0 / 3.0))
+    val weeklyWithholding = round((weeklyIncome + 0.99) * tax.multiplier - tax.base)
+    return round(weeklyWithholding * (13.0 / 3.0))
 }
 
 fun main() {
