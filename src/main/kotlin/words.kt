@@ -4,8 +4,9 @@ class Words {
     fun String.record() {
         list += this
     }
+
     operator fun String.unaryPlus() {
-        list += this
+        record()
     }
 
     override fun toString() = list.toString()
