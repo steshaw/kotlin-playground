@@ -1,9 +1,10 @@
-inline fun <T> myWith(t: T, block: T.() -> Unit): T {
+inline fun <T> myApply(t: T, block: T.() -> Unit): T {
     t.block()
     return t
 }
 
 fun main() {
+    println("original:")
     run {
         val sb = StringBuilder()
         sb.appendLine("Alphabet")
@@ -12,9 +13,10 @@ fun main() {
         }
         println(sb)
     }
+    println("myApply:")
     run {
         val sb = StringBuilder()
-        val r = myWith(sb) {
+        val r = myApply(sb) {
             appendLine("Alphabet")
             for (c in 'a'..'z') {
                 append(c)
@@ -22,6 +24,7 @@ fun main() {
         }
         println(r)
     }
+    println("with:")
     run {
         val sb = StringBuilder()
         with(sb) {
