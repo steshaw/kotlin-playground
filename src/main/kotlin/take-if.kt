@@ -15,7 +15,7 @@ fun main() {
 
     fun openIssues(issues: List<Issue>) {
         issues.filter { it.status == OPEN }
-            .takeIf(List<Issue>::isNotEmpty)
+            .takeIf { it.isNotEmpty() }
             ?.let { println("There are some open issues") }
     }
 
