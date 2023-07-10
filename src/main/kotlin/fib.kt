@@ -1,11 +1,9 @@
 fun fibonacci(): Sequence<Int> = sequence {
     var i = 0
     var j = 1
-    yield(i)
-    yield(j)
     while (true) {
+        yield(i)
         val v = i + j
-        yield(v)
         i = j
         j = v
     }
