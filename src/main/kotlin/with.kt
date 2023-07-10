@@ -1,5 +1,5 @@
 inline fun <T> myWith(t: T, block: T.() -> Unit): T {
-    block(t)
+    t.block()
     return t
 }
 
