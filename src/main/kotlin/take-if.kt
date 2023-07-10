@@ -19,11 +19,20 @@ fun main() {
             ?.let { println("There are some open issues") }
     }
 
+    // Simpler version without `takeIf`.
+    fun openIssues2(issues: List<Issue>) {
+        if (issues.any { it.status == OPEN }) {
+            println("There are some open issues")
+        }
+    }
+
     println("Some open:")
     openIssues(issues) // there are some open issues
+    openIssues2(issues) // there are some open issues
     val allClosed = issues.map {
         if (it.status == OPEN) Issue(it.id, CLOSED) else it
     }
     println("All closed:")
     openIssues(allClosed) // Prints nothing
+    openIssues2(allClosed) // Prints nothing
 }
