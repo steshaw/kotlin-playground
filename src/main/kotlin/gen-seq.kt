@@ -23,4 +23,21 @@ fun main() {
         }
     }
     println(zs.take(5).toList())
+
+
+    fun mySequence() = sequence {
+        println("yield one element")
+        yield(1)
+        println("yield a range")
+        yieldAll(3..5)
+        println("yield a list")
+        yieldAll(listOf(7, 9))
+    }
+
+    println("---")
+    println(mySequence()
+        .map { it * it }
+        .filter { it > 10 }
+        .take(1))
 }
+
