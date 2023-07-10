@@ -15,4 +15,12 @@ fun main() {
     val ys = sequenceOf(1, 2, 3)
     println(ys)
     println(ys.toList())
+
+    val zs = sequence {
+        var i = 0
+        while (true) {
+            yield(i++)
+        }
+    }
+    println(zs.take(5).toList())
 }
