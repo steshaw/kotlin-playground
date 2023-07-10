@@ -1,7 +1,7 @@
 fun main() {
     val xs = generateSequence(3) { n ->
         println("Generating element...")
-        (n + 1).takeIf { it < 7}
+        (n + 1).takeIf { it < 7 }
     }
     println("take 0")
     println(xs.take(0).toList())
@@ -11,4 +11,8 @@ fun main() {
     println(xs.take(2).toList())
     println("toList")
     println(xs.toList())
+
+    val ys = sequenceOf(1, 2, 3)
+    println(ys)
+    println(ys.toList())
 }
